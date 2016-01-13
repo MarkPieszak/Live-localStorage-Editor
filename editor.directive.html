@@ -1,31 +1,51 @@
 
-<div class="">
+<div class="container">
 
-	VM : <br>
-	{{ vmEditor | json }}
+	<br>
 
-	<br><br>
-
-	<div class="col col-md-6" ng-repeat="(key, storage_value) in vmEditor.storage">
-		<div class="form-group">
-			<label>{{ key }}</label>
-
-			<input type="text" ng-model="vmEditor.storage[key]" class="form-control">
-
-		</div>
-	</div>
-
-	<br><br>
-
-	<div>
-		<h3>Add New Item:</h3>
-
-		<input ng-model="vmEditor.newItem.key" class="form-control">
-		<input ng-model="vmEditor.newItem.val" class="form-control">
-
-		<button ng-click="vmEditor.save()" class="btn btn-primary">
-			Save items to {{ vmEditor.type }}
+	<div class="col col-md-4 pull-left">
+		<button ng-click="vmEditor.clear()" class="btn btn-danger">
+			Clear ALL items in {{ vmEditor.type }}
 		</button>
 	</div>
+
+	<div class="col col-md-4 pull-right form-group">
+
+		<label>Select Storage type:</label>
+		<select ng-model="vmEditor.type"
+			ng-options="item as item for item in vmEditor.storage_types"
+			ng-change="vmEditor.changeType(item)"
+			class="form-control">
+		</select>
+
+	</div>
+
+	<br><br>
+	<h3>{{ vmEditor.type }} collection:</h3>
+
+	<table class="table col col-md-6">
+		<tr>
+			<th>Key</th>
+			<th>Value</th>
+		</tr>
+		<tr ng-repeat="(key, storage_value) in vmEditor.storage">
+			<td>{{ key }}</td>
+			<td>
+				<input type="text" ng-model="vmEditor.storage[key]" class="form-control">
+			</td>
+		</tr>
+	</table>
+
+	<div class="col col-md-6" ng-form novalidate name="addForm">
+		<h3>Add New Item:</h3>
+
+		<input ng-model="vmEditor.newItem.key" class="form-control" placeholder="Key" required><br>
+		<textarea ng-model="vmEditor.newItem.val" class="form-control" placeholder="Value" rows="7" required></textarea><br>
+
+		<button ng-click="vmEditor.addItem(vmEditor.newItem)"
+			ng-disabled="!addForm.$valid"
+			class="btn btn-success">
+			Save items to {{ vmEditor.type }}
+		</button>
 
 </div>

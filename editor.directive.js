@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('editor-app' , [])
-	.directive('storageEditor', function () {
+	.directive('storageEditor', ['$interval', function ($interval) {
 		return {
 			scope : {},
 			templateUrl : 'editor.directive.html',
@@ -19,11 +19,19 @@ angular.module('editor-app' , [])
 			// Sets the default
 			vm.type = vm.storage_types[1];
 
-			vm.storage = vm.type === 'localStorage'
-				? localStorage
-				: sessionStorage;
+			setStorageType(vm.type);
+			intervalLoop();
 
 			vm.__backup = vm.storage;
+
+			vm.changeType = function () {
+				setStorageType(vm.type);
+			};
+
+			vm.addItem = function (item) {
+				vm.storage[item.key] = item.val;
+				vm.newItem = [];
+			};
 
 			vm.save = function () {
 
@@ -47,6 +55,10 @@ angular.module('editor-app' , [])
 
 			};
 
+			vm.clear = function () {
+				vm.storage.clear();
+			};
+
 			///////////////////////////
 			// BACKUP & RESTORE
 
@@ -58,6 +70,29 @@ angular.module('editor-app' , [])
 				vm.storage = vm.__backup;
 			};
 
+			function intervalLoop () {
+
+				var previous = JSON.stringify(vm.storage);
+
+				$interval(function () {
+					/*
+					var current = JSON.stringify(vm.storage);
+
+					if (current !== previous) {
+						console.log('different!');
+						previous = JSON.stringify(vm.storage);
+					}
+					*/
+
+				}, 500);
+			}
+
+			function setStorageType (type) {
+				vm.storage = type === 'localStorage'
+					? localStorage
+					: sessionStorage;
+			}
+
 		}
 
-	});
+	}]);
