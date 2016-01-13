@@ -26,12 +26,16 @@
 	<table class="table col col-md-6">
 		<tr>
 			<th class="col-md-2">Key</th>
-			<th class="col-md-10">Value</th>
+			<th class="col-md-19">Value</th>
+			<th class="col-md-1"></th>
 		</tr>
 		<tr ng-repeat="(key, storage_value) in vmEditor.storage">
 			<td>{{ key }}</td>
 			<td>
 				<textarea type="text" ng-model="vmEditor.storage[key]" class="form-control"></textarea>
+			</td>
+			<td>
+				<button ng-click="vmEditor.deleteItem(key)" class="btn btn-sm btn-danger">Remove</button>
 			</td>
 		</tr>
 	</table>

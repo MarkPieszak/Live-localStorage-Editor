@@ -33,6 +33,10 @@ angular.module('editor-app' , [])
 				vm.newItem = [];
 			};
 
+			vm.deleteItem = function (key) {
+				delete vm.storage[key];
+			};
+
 			vm.save = function () {
 
 				var actual_storage = vm.type === 'localStorage'
@@ -56,7 +60,7 @@ angular.module('editor-app' , [])
 			};
 
 			vm.clear = function () {
-				var response = confirm('Are you sure?\n\nThis will Clear ALL data within ' + vm.type);
+				var response = confirm('Are you sure?\n\nThis will Clear -ALL- data within ' + vm.type);
 				if (response) {
 					vm.storage.clear();
 					return;
