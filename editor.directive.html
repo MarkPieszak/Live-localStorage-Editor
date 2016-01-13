@@ -25,13 +25,13 @@
 
 	<table class="table col col-md-6">
 		<tr>
-			<th>Key</th>
-			<th>Value</th>
+			<th class="col-md-2">Key</th>
+			<th class="col-md-10">Value</th>
 		</tr>
 		<tr ng-repeat="(key, storage_value) in vmEditor.storage">
 			<td>{{ key }}</td>
 			<td>
-				<input type="text" ng-model="vmEditor.storage[key]" class="form-control">
+				<textarea type="text" ng-model="vmEditor.storage[key]" class="form-control"></textarea>
 			</td>
 		</tr>
 	</table>
@@ -45,7 +45,7 @@
 		<button ng-click="vmEditor.addItem(vmEditor.newItem)"
 			ng-disabled="!addForm.$valid"
 			class="btn btn-success">
-			Save items to {{ vmEditor.type }}
+			Add to {{ vmEditor.type }}
 		</button>
 
 </div>

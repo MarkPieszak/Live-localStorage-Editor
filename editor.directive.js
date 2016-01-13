@@ -56,7 +56,11 @@ angular.module('editor-app' , [])
 			};
 
 			vm.clear = function () {
-				vm.storage.clear();
+				var response = confirm('Are you sure?\n\nThis will Clear ALL data within ' + vm.type);
+				if (response) {
+					vm.storage.clear();
+					return;
+				}
 			};
 
 			///////////////////////////
