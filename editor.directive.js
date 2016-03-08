@@ -23,30 +23,22 @@
 				vm.addItem = addItem;
 				vm.deleteItem = deleteItem;
 				vm.save = save;
-				vm.editing = editing;
 				vm.clear = clear;
+				vm.backup = backup;
+				vm.restore = restore;
 
+				// On load
 				activate();
 
 				////////////////////////////////////
 				function activate() {
-
 					setStorageType(vm.type);
 					vm.__backup = vm.storage;
-					intervalLoop();
 				}
 
 				////////////////////////////////////
 				// #region Internal Methods
 				////////////////////////////////////
-
-				function editing (val) {
-
-				};
-
-				function deleteItem (key) {
-					delete vm.storage[key];
-				};
 
 				function save () {
 
@@ -54,24 +46,15 @@
 						? localStorage
 						: sessionStorage;
 
-					console.log(vm.storage);
-
 					for (var key in vm.storage) {
-						console.log(key);
-						console.log(vm.storage[key]);
 						actual_storage.setItem(key, vm.storage[key]);
 					}
-
 
 					alert('Saved!');
 				};
 
-				vm.backup = function () {
-					vm.__backup = vm.storage;
-				};
-
-				vm.restore = function () {
-					vm.storage = vm.__backup;
+				function deleteItem (key) {
+					delete vm.storage[key];
 				};
 
 				function changeType () {
@@ -91,28 +74,19 @@
 					}
 				};
 
-				function intervalLoop () {
-
-					var previous = JSON.stringify(vm.storage);
-
-					$interval(function () {
-						/*
-						var current = JSON.stringify(vm.storage);
-
-						if (current !== previous) {
-							console.log('different!');
-							previous = JSON.stringify(vm.storage);
-						}
-						*/
-
-					}, 500);
-				}
-
 				function setStorageType (type) {
 					vm.storage = type === 'localStorage'
 						? localStorage
 						: sessionStorage;
 				}
+
+				function backup () {
+					vm.__backup = vm.storage;
+				};
+
+				function restore () {
+					vm.storage = vm.__backup;
+				};
 
 				// #endregion
 
