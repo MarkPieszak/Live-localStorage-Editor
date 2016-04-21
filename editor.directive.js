@@ -20,11 +20,11 @@
 				vm.type = vm.storage_types[1]; // Sets the default
 
 				vm.changeType = changeType;
-				vm.addItem = addItem;
+				vm.addItem    = addItem;
 				vm.deleteItem = deleteItem;
-				vm.save = save;
-				vm.clear = clear;
-				vm.backup = backup;
+				vm.save    = save;
+				vm.clear   = clear;
+				vm.backup  = backup;
 				vm.restore = restore;
 
 				// On load
